@@ -1,25 +1,18 @@
 import java.awt.*;
 import javax.swing.*;
-// import java.awt.event.*; 
 
 public class MyButton extends JButton {
     
     private static final long serialVersionUID = 1L;
 
-    MyButton() {
+    MyButton() {    // Constructor for JButton called MyButton
 
-        this.setVisible(true);
-        this.setPreferredSize(new Dimension(180, 180));
-        this.setFocusable(false);
-        this.setBackground(Color.white);
-        this.setBorder(BorderFactory.createEtchedBorder());
-        // ImageIcon butImage1 = new ImageIcon("right-arrow.png"); // Creates ImageIcon
-        // but1.setIcon(butImage1);
-        // but1.setHorizontalTextPosition(JButton.CENTER);
-        // but1.setVerticalTextPosition(JButton.CENTER);
-        this.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-        this.setIconTextGap(40);
-        this.setForeground(Color.red);
-
+        this.setVisible(true);  //Changes visibility of MyButton
+        this.setPreferredSize(new Dimension(180, 180)); // Sets Preffered size of MyButton within JFrame Layout
+        this.setFocusable(false); // Removes highlight box around button text
+        this.setBackground(Color.white); // Sets background colour
+        this.setBorder(BorderFactory.createEtchedBorder()); // Adds border to edge of button
+        this.setFont(new Font("Comic Sans MS", Font.BOLD, 20)); // Changes font, text style and text size of text on button
+        this.setForeground(Color.red); // Changes text colour of button text
     }
 }
