@@ -102,17 +102,16 @@ public class MyFrame extends JFrame implements ActionListener {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closes application on exit
         this.setLayout(new BorderLayout()); // Changes frame layout to a border layout
-        this.setVisible(true); // Changes visibility
         this.setSize(1200, 700); // Sets size (x-coordinate, y-coordinate)
-
+        
         ImageIcon frameImage = new ImageIcon("ireland.png"); // Creates ImageIcon
         this.setIconImage(frameImage.getImage()); // Sets frame image to ImageIcon
-
+        
         this.add(topPanel, BorderLayout.NORTH); // Adds JPanel to JFrame in set location
         this.add(centerPanel, BorderLayout.CENTER); // Adds JPanel to JFrame in set location
-
+        
         topPanel.add(label); // Adds JLabel to JPanel
-
+        
         centerPanel.add(but1); // Places MyButton within JPanel
         centerPanel.add(but2); // Places MyButton within JPanel
         centerPanel.add(but3); // Places MyButton within JPanel
@@ -131,8 +130,10 @@ public class MyFrame extends JFrame implements ActionListener {
         centerPanel.add(but16); // Places MyButton within JPanel
         centerPanel.add(but17); // Places MyButton within JPanel
         centerPanel.add(but18); // Places MyButton within JPanel
-    }
 
+        this.setVisible(true); // Changes visibility, must be called after all components added
+    }
+    
     /*
      * Action Listener code that knows whether a button is pressed and delivers
      * output
