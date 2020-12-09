@@ -11,7 +11,7 @@ public class MyButton extends JButton {
         this.setPreferredSize(new Dimension(180, 180)); // Sets Preffered size of MyButton within JFrame Layout
         this.setFocusable(false); // Removes highlight box around button text
         this.setBackground(Color.white); // Sets background colour
-        this.setBorder(BorderFactory.createEtchedBorder()); // Adds border to edge of button
+        this.setBorder(BorderFactory.createLineBorder(Color.black, 2)); // Adds border to edge of button
         this.setFont(new Font("Comic Sans MS", Font.BOLD, 20)); // Changes font, text style and text size of text on button
         this.setForeground(Color.red); // Changes text colour of button text
     }
