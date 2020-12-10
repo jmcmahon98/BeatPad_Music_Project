@@ -149,7 +149,9 @@ public class MyFrame extends JFrame implements ActionListener {
             but1.setEnabled(false);
             but1.setBackground(Color.lightGray);
         } else if (e.getSource() == but2) {
-            System.out.println("Output 2");
+            String audioFilePath = "Beatpad/Clap-1.wav";
+            playClap player = new playClap();
+            player.play(audioFilePath);
         } else if (e.getSource() == but3) {
             System.out.println("Output 3");
         } else if (e.getSource() == but4) {
