@@ -1,9 +1,11 @@
 
-import java.awt.event.ItemListener;
-import java.awt.event.MouseListener;
+
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.events.MouseEvent;
 import org.w3c.dom.views.AbstractView;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -394,9 +396,17 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
        // if(evt.getButton()==MouseEvent.BUTTON)
-        String audioFilePath = "src/audio/FX/8_bar_riser.wav";
-            audioPlayer.play(audioFilePath);
-        
+//        String audioFilePath = "src/audio/FX/8_bar_riser.wav";
+//            audioPlayer.play(audioFilePath);
+         try {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY); // There are several different amounts of time you can loop it, so you can change this if you want, or you can just use clip.stop() whenever you want.
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -526,6 +536,17 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 //        frame.setVisible(true);
 //        });
     }
+    public void run() {
+    try {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("NameOfFile.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY); // There are several different amounts of time you can loop it, so you can change this if you want, or you can just use clip.stop() whenever you want.
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
