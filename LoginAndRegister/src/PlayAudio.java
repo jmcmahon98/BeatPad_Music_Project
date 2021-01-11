@@ -12,7 +12,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
  
 
-public class playClap implements LineListener {
+public class PlayAudio implements LineListener {
      
     /**
      * this flag indicates whether the playback completes or not.
@@ -84,7 +84,7 @@ public class playClap implements LineListener {
  
     public static void main(String[] args) {
         String audioFilePath = "Beatpad/Clap-1.wav";
-        playClap player = new playClap();
+        PlayAudio player = new PlayAudio();
         player.play(audioFilePath);
     }
  

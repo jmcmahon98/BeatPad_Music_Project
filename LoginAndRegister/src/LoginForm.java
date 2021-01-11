@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -26,6 +27,17 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);//center form in the screen 
     }
+    
+    Preferences preference;
+    boolean rememberPreferences;
+    
+    public void rememberMe(){
+        preference = Preferences.userNodeForPackage(this.getClass());
+        rememberPreferences = preference.getBoolean("rememberMe", Boolean.valueOf(""));
+        if(rememberPreferences){
+            user.setText("Pasword", "");
+        }
+                }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,9 +281,10 @@ public class LoginForm extends javax.swing.JFrame {
             if(rs.next()){
                 MainPage hjf = new MainPage();
                 hjf.setVisible(true);
-                hjf.pack();
+                hjf.setSize(1440, 860);
+                //hjf.pack();
                 hjf.setLocationRelativeTo(null);
-                hjf.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                //hjf.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 hjf.jUsernameWelcomeLabel.setText("Welcome " + username + "!");
                 this.dispose();
             }
