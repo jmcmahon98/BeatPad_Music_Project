@@ -1,5 +1,8 @@
 
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.events.MouseEvent;
 import org.w3c.dom.views.AbstractView;
@@ -21,6 +24,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
      PlayAudio audioPlayer;
      boolean isPlaying1 = false;
+     AudioInputStream audioInputStream = null;
+     Clip clip = null;
 boolean isPlaying2 = false;
 
 
@@ -404,23 +409,44 @@ boolean isPlaying2 = false;
 
 
          try {
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
-        Clip clip = AudioSystem.getClip();
+          audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
+          clip = AudioSystem.getClip();
         if(!isPlaying1){
                     clip.open(audioInputStream);
 
         clip.start();
         clip.loop(Clip.LOOP_CONTINUOUSLY); 
-                    System.out.println("start");
+                    System.out.println("start " + isPlaying1 + " is running: " + clip.isRunning() + " is active: " + clip.isActive());
                     isPlaying1 = true;
+                    
+                    new java.util.Timer().schedule( 
+        new java.util.TimerTask() {
+            @Override
+            public void run() {
+System.out.println("astop "+ isPlaying1 + " is running: " + clip.isRunning() + " is active: " + clip.isActive());
+            clip.loop(0);
+           // clip.stop();
+            clip.flush();
+                try {
+                    // clip.close();
+                 //   audioInputStream.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+           isPlaying1 = false;
+            }
+        }, 
+        5000 
+);
 
         }else{
-            System.out.println("astop");
-            clip.loop(-1);
+            System.out.println("astop "+ isPlaying1 + " is running: " + clip.isRunning() + " is active: " + clip.isActive());
+            clip.loop(0);
             clip.stop();
             clip.flush();
-            clip.close();
-            audioInputStream.reset();
+           // clip.close();
+            audioInputStream.close();
         
            isPlaying1 = false;
         }
@@ -433,8 +459,7 @@ boolean isPlaying2 = false;
         // TODO add your handling code here:
 //                String audioFilePath = "src/audio/FX/cavey.wav";
 //            audioPlayer.play(audioFilePath);
-AudioInputStream audioInputStream;
-Clip clip = null;
+
 if(!isPlaying2){
 
 try {
@@ -450,6 +475,7 @@ try {
 }
 else{
     clip.stop();
+    
 }
     }//GEN-LAST:event_jButton2ActionPerformed
 
