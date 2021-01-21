@@ -23,10 +23,12 @@ import javax.sound.sampled.Clip;
 public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
      PlayAudio audioPlayer;
-     boolean isPlaying1 = false;
+     boolean isPlaying1 = false, isPlaying2 = false, isPlaying3 = false;
      AudioInputStream audioInputStream = null;
      Clip clip = null;
-boolean isPlaying2 = false;
+     Clip clip2 = null;
+     Clip clip3 = null;
+ 
 
 
     /**
@@ -401,87 +403,71 @@ boolean isPlaying2 = false;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-       // if(evt.getButton()==MouseEvent.BUTTON)
-//        String audioFilePath = "src/audio/FX/8_bar_riser.wav";
-//            audioPlayer.play(audioFilePath);
+    
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
          try {
-          audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
-          clip = AudioSystem.getClip();
-        if(!isPlaying1){
+             if(!isPlaying1){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
+
+                    clip = AudioSystem.getClip();
                     clip.open(audioInputStream);
-
-        clip.start();
-        clip.loop(Clip.LOOP_CONTINUOUSLY); 
-                    System.out.println("start " + isPlaying1 + " is running: " + clip.isRunning() + " is active: " + clip.isActive());
+                    clip.start();
+                    clip.loop(Clip.LOOP_CONTINUOUSLY); 
                     isPlaying1 = true;
-                    
-                    new java.util.Timer().schedule( 
-        new java.util.TimerTask() {
-            @Override
-            public void run() {
-System.out.println("astop "+ isPlaying1 + " is running: " + clip.isRunning() + " is active: " + clip.isActive());
-            clip.loop(0);
-           // clip.stop();
-            clip.flush();
-                try {
-                    // clip.close();
-                 //   audioInputStream.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        
-           isPlaying1 = false;
-            }
-        }, 
-        5000 
-);
 
-        }else{
-            System.out.println("astop "+ isPlaying1 + " is running: " + clip.isRunning() + " is active: " + clip.isActive());
-            clip.loop(0);
-            clip.stop();
-            clip.flush();
-           // clip.close();
-            audioInputStream.close();
-        
-           isPlaying1 = false;
+            }else{
+                this.clip.loop(0);
+                this.clip.stop();
+                this.clip.flush();
+                isPlaying1 = false;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-//                String audioFilePath = "src/audio/FX/cavey.wav";
-//            audioPlayer.play(audioFilePath);
-
-if(!isPlaying2){
-
 try {
-        audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Hat-1.wav"));
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-        isPlaying2 = true;// There are several different amounts of time you can loop it, so you can change this if you want, or you can just use clip.stop() whenever you want.
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
-}
-else{
-    clip.stop();
-    
-}
+             if(!isPlaying2){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Hat-1.wav"));
+                    clip2 = AudioSystem.getClip();
+                    clip2.open(audioInputStream);
+                    clip2.start();
+                    clip2.loop(Clip.LOOP_CONTINUOUSLY); 
+                    isPlaying2 = true;
+
+            }else{
+                this.clip2.loop(0);
+                this.clip2.stop();
+                this.clip2.flush();
+                isPlaying2 = false;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String audioFilePath = "src/audio/FX/long_riser.wav";
-            audioPlayer.play(audioFilePath);
+            try {
+             if(!isPlaying3){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/long_riser.wav"));
+                    clip3 = AudioSystem.getClip();
+                    clip3.open(audioInputStream);
+                    clip3.start();
+                    clip3.loop(Clip.LOOP_CONTINUOUSLY); 
+                    isPlaying3 = true;
+
+            }else{
+                this.clip3.loop(0);
+                this.clip3.stop();
+                this.clip3.flush();
+                isPlaying3 = false;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
