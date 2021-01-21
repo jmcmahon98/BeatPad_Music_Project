@@ -28,16 +28,16 @@ public class LoginForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);//center form in the screen 
     }
     
-    Preferences preference;
-    boolean rememberPreferences;
-    
-    public void rememberMe(){
-        preference = Preferences.userNodeForPackage(this.getClass());
-        rememberPreferences = preference.getBoolean("rememberMe", Boolean.valueOf(""));
-        if(rememberPreferences){
-            user.setText("Pasword", "");
-        }
-                }
+    //Preferences preference;
+    //boolean rememberPreferences;
+//    
+//    public void rememberMe(){
+//        preference = Preferences.userNodeForPackage(this.getClass());
+//        rememberPreferences = preference.getBoolean("rememberMe", Boolean.valueOf(""));
+//        if(rememberPreferences){
+//            user.setText("Pasword", "");
+//        }
+//                }
 
     /**
      * This method is called from within the constructor to initialize the form.

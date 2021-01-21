@@ -20,6 +20,9 @@ import javax.sound.sampled.Clip;
 public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
      PlayAudio audioPlayer;
+     boolean isPlaying1 = false;
+boolean isPlaying2 = false;
+
 
     /**
      * Creates new form MainPage
@@ -131,7 +134,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jPanel3.setPreferredSize(new java.awt.Dimension(1000, 615));
 
         jButton1.setBackground(new java.awt.Color(191, 64, 128));
-        jButton1.setText("jButton1");
+        jButton1.setText("Hard Kick");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -139,7 +142,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton2.setBackground(new java.awt.Color(51, 204, 51));
-        jButton2.setText("jButton1");
+        jButton2.setText("Kick 2");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -211,7 +214,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton11.setBackground(new java.awt.Color(51, 204, 51));
-        jButton11.setText("jButton1");
+        jButton11.setText("Kick 3");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -398,12 +401,29 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
        // if(evt.getButton()==MouseEvent.BUTTON)
 //        String audioFilePath = "src/audio/FX/8_bar_riser.wav";
 //            audioPlayer.play(audioFilePath);
+
+
          try {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
         Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
+        if(!isPlaying1){
+                    clip.open(audioInputStream);
+
         clip.start();
-        clip.loop(Clip.LOOP_CONTINUOUSLY); // There are several different amounts of time you can loop it, so you can change this if you want, or you can just use clip.stop() whenever you want.
+        clip.loop(Clip.LOOP_CONTINUOUSLY); 
+                    System.out.println("start");
+                    isPlaying1 = true;
+
+        }else{
+            System.out.println("astop");
+            clip.loop(-1);
+            clip.stop();
+            clip.flush();
+            clip.close();
+            audioInputStream.reset();
+        
+           isPlaying1 = false;
+        }
     } catch (Exception ex) {
         ex.printStackTrace();
     }
@@ -411,8 +431,26 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-                String audioFilePath = "src/audio/FX/cavey.wav";
-            audioPlayer.play(audioFilePath);
+//                String audioFilePath = "src/audio/FX/cavey.wav";
+//            audioPlayer.play(audioFilePath);
+AudioInputStream audioInputStream;
+Clip clip = null;
+if(!isPlaying2){
+
+try {
+        audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Hat-1.wav"));
+        clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        isPlaying2 = true;// There are several different amounts of time you can loop it, so you can change this if you want, or you can just use clip.stop() whenever you want.
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
+else{
+    clip.stop();
+}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
