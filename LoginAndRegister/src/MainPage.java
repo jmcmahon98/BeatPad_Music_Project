@@ -33,7 +33,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
      boolean [] isPlaying;
      AudioInputStream audioInputStream = null;
-        Clip [] clips;
+     Clip [] clips;
+     String folder = "samples_1/";
 
 // 
 
@@ -42,8 +43,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
      * Creates new form MainPage
      */
     public MainPage() {
-        this.clips = new Clip[18];
-        this.isPlaying = new boolean[18];
+        this.clips = new Clip[30];
+        this.isPlaying = new boolean[30];
         initComponents();
     }
 
@@ -92,6 +93,18 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jPanel4 = new javax.swing.JPanel();
         jButton20 = new javax.swing.JButton();
         jSlider1 = new javax.swing.JSlider();
+        jButton19 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        jButton22 = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
+        jButton24 = new javax.swing.JButton();
+        jButton25 = new javax.swing.JButton();
+        jButton26 = new javax.swing.JButton();
+        jButton27 = new javax.swing.JButton();
+        jButton28 = new javax.swing.JButton();
+        jButton29 = new javax.swing.JButton();
+        jButton30 = new javax.swing.JButton();
+        jButton31 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -137,7 +150,12 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jPanel2.setBackground(new java.awt.Color(15, 15, 15));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sound Samples 1", "Sound Samples 2" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,15 +177,17 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jPanel3.setPreferredSize(new java.awt.Dimension(1000, 615));
 
         jButton1.setBackground(new java.awt.Color(191, 64, 128));
-        jButton1.setText("Hard Kick");
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Clap 1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 204, 51));
-        jButton2.setText("Kick 2");
+        jButton2.setBackground(new java.awt.Color(191, 64, 128));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Clap 2");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -175,7 +195,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton3.setBackground(new java.awt.Color(51, 204, 51));
-        jButton3.setText("jButton1");
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Hat 1 ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -183,7 +204,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton4.setBackground(new java.awt.Color(51, 204, 51));
-        jButton4.setText("jButton1");
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Hat 2");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -191,7 +213,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton5.setBackground(new java.awt.Color(255, 51, 0));
-        jButton5.setText("jButton1");
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Kick 1");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -199,7 +222,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton6.setBackground(new java.awt.Color(255, 51, 0));
-        jButton6.setText("jButton1");
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Kick 2");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -207,7 +231,9 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton7.setBackground(new java.awt.Color(0, 204, 255));
-        jButton7.setText("jButton1");
+        jButton7.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Open Hat 1");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -215,15 +241,18 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton8.setBackground(new java.awt.Color(0, 204, 255));
-        jButton8.setText("jButton1");
+        jButton8.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Open Hat 2");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(0, 204, 255));
-        jButton9.setText("jButton1");
+        jButton9.setBackground(new java.awt.Color(255, 255, 0));
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("Snap 1");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -231,47 +260,53 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton10.setBackground(new java.awt.Color(255, 255, 0));
-        jButton10.setText("jButton1");
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Snap 2");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(51, 204, 51));
-        jButton11.setText("Kick 3");
+        jButton11.setBackground(new java.awt.Color(0, 204, 255));
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("Synth 1");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
             }
         });
 
-        jButton12.setBackground(new java.awt.Color(51, 204, 51));
-        jButton12.setText("jButton1");
+        jButton12.setBackground(new java.awt.Color(0, 204, 255));
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("Synth 2");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
 
-        jButton13.setBackground(new java.awt.Color(51, 204, 51));
-        jButton13.setText("jButton1");
+        jButton13.setBackground(new java.awt.Color(0, 204, 255));
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
+        jButton13.setText("Synth 3");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
             }
         });
 
-        jButton14.setBackground(new java.awt.Color(255, 51, 0));
-        jButton14.setText("jButton1");
+        jButton14.setBackground(new java.awt.Color(0, 204, 255));
+        jButton14.setForeground(new java.awt.Color(255, 255, 255));
+        jButton14.setText("Synth 4");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
             }
         });
 
-        jButton15.setBackground(new java.awt.Color(255, 51, 0));
-        jButton15.setText("jButton1");
+        jButton15.setBackground(new java.awt.Color(0, 204, 255));
+        jButton15.setForeground(new java.awt.Color(255, 255, 255));
+        jButton15.setText("Synth 5");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);
@@ -279,7 +314,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton16.setBackground(new java.awt.Color(0, 204, 255));
-        jButton16.setText("jButton1");
+        jButton16.setForeground(new java.awt.Color(255, 255, 255));
+        jButton16.setText("Synth 6");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton16ActionPerformed(evt);
@@ -287,7 +323,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton17.setBackground(new java.awt.Color(0, 204, 255));
-        jButton17.setText("jButton1");
+        jButton17.setForeground(new java.awt.Color(255, 255, 255));
+        jButton17.setText("Synth 7");
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton17ActionPerformed(evt);
@@ -295,7 +332,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         });
 
         jButton18.setBackground(new java.awt.Color(0, 204, 255));
-        jButton18.setText("jButton1");
+        jButton18.setForeground(new java.awt.Color(255, 255, 255));
+        jButton18.setText("Synth 8");
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton18ActionPerformed(evt);
@@ -341,50 +379,184 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                 .addGap(44, 44, 44))
         );
 
+        jButton19.setBackground(new java.awt.Color(0, 204, 255));
+        jButton19.setForeground(new java.awt.Color(255, 255, 255));
+        jButton19.setText("Synth 9");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+
+        jButton21.setBackground(new java.awt.Color(0, 204, 255));
+        jButton21.setForeground(new java.awt.Color(255, 255, 255));
+        jButton21.setText("Synth 10");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
+
+        jButton22.setBackground(new java.awt.Color(255, 137, 33));
+        jButton22.setForeground(new java.awt.Color(255, 255, 255));
+        jButton22.setText("FX 1");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+
+        jButton23.setBackground(new java.awt.Color(255, 137, 33));
+        jButton23.setForeground(new java.awt.Color(255, 255, 255));
+        jButton23.setText("FX 2");
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
+
+        jButton24.setBackground(new java.awt.Color(255, 137, 33));
+        jButton24.setForeground(new java.awt.Color(255, 255, 255));
+        jButton24.setText("FX 3");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+
+        jButton25.setBackground(new java.awt.Color(255, 137, 33));
+        jButton25.setForeground(new java.awt.Color(255, 255, 255));
+        jButton25.setText("FX 4");
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
+
+        jButton26.setBackground(new java.awt.Color(255, 137, 33));
+        jButton26.setForeground(new java.awt.Color(255, 255, 255));
+        jButton26.setText("FX 5");
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
+
+        jButton27.setBackground(new java.awt.Color(255, 137, 33));
+        jButton27.setForeground(new java.awt.Color(255, 255, 255));
+        jButton27.setText("FX 6");
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
+
+        jButton28.setBackground(new java.awt.Color(255, 137, 33));
+        jButton28.setForeground(new java.awt.Color(255, 255, 255));
+        jButton28.setText("FX 7");
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
+
+        jButton29.setBackground(new java.awt.Color(255, 137, 33));
+        jButton29.setForeground(new java.awt.Color(255, 255, 255));
+        jButton29.setText("FX 8");
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton29ActionPerformed(evt);
+            }
+        });
+
+        jButton30.setBackground(new java.awt.Color(255, 137, 33));
+        jButton30.setForeground(new java.awt.Color(255, 255, 255));
+        jButton30.setText("FX 9");
+        jButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton30ActionPerformed(evt);
+            }
+        });
+
+        jButton31.setBackground(new java.awt.Color(255, 137, 33));
+        jButton31.setForeground(new java.awt.Color(255, 255, 255));
+        jButton31.setText("FX 10");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(269, Short.MAX_VALUE))
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,8 +582,22 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                     .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -461,7 +647,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         try {
              if(!isPlaying[0]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/claps/clap-1.wav"));
                     startClip(0, audioInputStream);
 
             }else{
@@ -477,7 +663,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 try {
              if(!isPlaying[1]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Hat-1.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/claps/clap-2.wav"));
                     startClip(1, audioInputStream);
             }else{
                  stopClip(1);
@@ -490,7 +676,7 @@ try {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
             try {
              if(!isPlaying[2]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Snap-2.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/hats/hat-1.wav"));
                     startClip(2, audioInputStream);
             }else{
                  stopClip(2);
@@ -503,7 +689,7 @@ try {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        try {
              if(!isPlaying[3]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/dark-kick.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/hats/hat-2.wav"));
                     startClip(3, audioInputStream);
 
             }else{
@@ -517,7 +703,7 @@ try {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
              if(!isPlaying[4]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/open-hat-1.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/kicks/kick-1.wav"));
                     startClip(4, audioInputStream);
 
             }else{
@@ -531,7 +717,7 @@ try {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
              if(!isPlaying[5]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Clap-2.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/kicks/kick-2.wav"));
                     startClip(5, audioInputStream);
 
             }else{
@@ -545,7 +731,7 @@ try {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
              if(!isPlaying[6]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/chorus-arp-140.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/open-hats/open-hat-1.wav"));
                     startClip(6, audioInputStream);
 
             }else{
@@ -558,7 +744,7 @@ try {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
              if(!isPlaying[7]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/verse-rhodes-150-B.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/open-hats/open-hat-2.wav"));
                     startClip(7, audioInputStream);
 
             }else{
@@ -571,7 +757,7 @@ try {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         try {
              if(!isPlaying[8]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/verse-arp-140.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/snaps/snap-1.wav"));
                     startClip(8, audioInputStream);
 
             }else{
@@ -585,7 +771,7 @@ try {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
              if(!isPlaying[9]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/chorus-chords-mid-1-80.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/snaps/snap-2.wav"));
                     startClip(9, audioInputStream);
 
             }else{
@@ -598,7 +784,7 @@ try {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         try {
              if(!isPlaying[10]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/Chorus-Top-lead-75.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-1.wav"));
                     startClip(10, audioInputStream);
 
             }else{
@@ -612,7 +798,7 @@ try {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         try {
              if(!isPlaying[11]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/chorus-high-chords-150-B.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-2.wav"));
                     startClip(11, audioInputStream);
 
             }else{
@@ -626,7 +812,7 @@ try {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         try {
              if(!isPlaying[12]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/long_riser.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-3.wav"));
                     startClip(12, audioInputStream);
 
             }else{
@@ -639,7 +825,7 @@ try {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         try {
              if(!isPlaying[13]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/cavey.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-4.wav"));
                     startClip(13, audioInputStream);
 
             }else{
@@ -652,7 +838,7 @@ try {
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         try {
              if(!isPlaying[14]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/8_bar_riser.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-5.wav"));
                     startClip(14, audioInputStream);
 
             }else{
@@ -665,7 +851,7 @@ try {
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         try {
              if(!isPlaying[15]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/synth_riser.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-6.wav"));
                     startClip(15, audioInputStream);
 
             }else{
@@ -678,7 +864,7 @@ try {
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         try {
              if(!isPlaying[16]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/noise_impact_long.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-7.wav"));
                     startClip(16, audioInputStream);
 
             }else{
@@ -691,7 +877,7 @@ try {
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
         try {
              if(!isPlaying[17]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/vinyl_noise-3.wav"));
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-8.wav"));
                     startClip(17, audioInputStream);
 
             }else{
@@ -714,6 +900,172 @@ try {
              }
          }
     }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        try {
+             if(!isPlaying[18]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-9.wav"));
+                    startClip(18, audioInputStream);
+
+            }else{
+                 stopClip(18);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        try {
+             if(!isPlaying[19]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-10.wav"));
+                    startClip(19, audioInputStream);
+
+            }else{
+                 stopClip(19);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        try {
+             if(!isPlaying[20]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-1.wav"));
+                    startClip(20, audioInputStream);
+
+            }else{
+                 stopClip(20);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        try {
+             if(!isPlaying[21]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-2.wav"));
+                    startClip(21, audioInputStream);
+
+            }else{
+                 stopClip(21);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        try {
+             if(!isPlaying[22]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-3.wav"));
+                    startClip(22, audioInputStream);
+
+            }else{
+                 stopClip(22);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        try {
+             if(!isPlaying[23]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-4.wav"));
+                    startClip(23, audioInputStream);
+
+            }else{
+                 stopClip(23);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        try {
+             if(!isPlaying[24]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-5.wav"));
+                    startClip(24, audioInputStream);
+
+            }else{
+                 stopClip(24);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        try {
+             if(!isPlaying[25]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-6.wav"));
+                    startClip(25, audioInputStream);
+
+            }else{
+                 stopClip(25);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        try {
+             if(!isPlaying[26]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-7.wav"));
+                    startClip(26, audioInputStream);
+
+            }else{
+                 stopClip(26);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+        try {
+             if(!isPlaying[27]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-8.wav"));
+                    startClip(27, audioInputStream);
+
+            }else{
+                 stopClip(27);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+        try {
+             if(!isPlaying[28]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-9.wav"));
+                    startClip(28, audioInputStream);
+
+            }else{
+                 stopClip(28);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton30ActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+        try {
+             if(!isPlaying[29]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-10.wav"));
+                    startClip(29, audioInputStream);
+
+            }else{
+                 stopClip(29);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        String selectedItem = jComboBox1.getSelectedItem().toString();
+        if(selectedItem.matches("Sound Samples 1")){
+            folder = "samples_1/";
+        }else{
+            folder = "samples_2/";
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private float getVolume(int sliderVal){
         if(sliderVal<1){
@@ -819,9 +1171,21 @@ try {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
+    private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton26;
+    private javax.swing.JButton jButton27;
+    private javax.swing.JButton jButton28;
+    private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton30;
+    private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
