@@ -701,41 +701,9 @@ try {
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
 
         
-         for (int i=0; i<clips.length; i++) {
-             if(clips[i].isActive()){
-             FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);
-             gainControl.setValue(getVolume(jSlider1.getValue())); // Reduce volume by 10 decibels.
-             clips[i].start();
-             }
-         }
     }//GEN-LAST:event_jSlider1StateChanged
 
-    private float getVolume(int sliderVal){
-        if(sliderVal<1){
-            return -80.0F;
-        }else if(sliderVal<=10){
-            return -71.4F;
-        }else if(sliderVal>10 && sliderVal<=20){
-            return -62.8F;
-        }else if(sliderVal>20 && sliderVal<=30){
-            return -54.2F;
-        }else if(sliderVal>30 && sliderVal<=40){
-            return -45.6F;
-        }else if(sliderVal>40 && sliderVal<=50){
-            return -37.0F;
-        }else if(sliderVal>50 && sliderVal<=60){
-            return -65.4F;
-        }else if(sliderVal>60 && sliderVal<=70){
-            return -19.8F;
-        }else if(sliderVal>70 && sliderVal<=80){
-            return -11.2F;
-        }else if(sliderVal>80 && sliderVal<=90){
-            return -2.6F;
-        }else{
-            return 6.0F;
-        }
-        
-    }
+
 
     /**
      * @param args the command line arguments
