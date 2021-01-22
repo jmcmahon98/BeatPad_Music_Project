@@ -1,14 +1,23 @@
 
 
+import java.awt.List;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.events.MouseEvent;
 import org.w3c.dom.views.AbstractView;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.Control;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,23 +31,31 @@ import javax.sound.sampled.Clip;
  */
 public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
-     PlayAudio audioPlayer;
-     boolean isPlaying1 = false, isPlaying2 = false, isPlaying3 = false;
+     boolean [] isPlaying;
      AudioInputStream audioInputStream = null;
-     Clip clip = null;
-     Clip clip2 = null;
-     Clip clip3 = null;
- 
+        Clip [] clips;
+
+// 
 
 
     /**
      * Creates new form MainPage
      */
     public MainPage() {
-        audioPlayer = new PlayAudio();
+        this.clips = new Clip[18];
+        this.isPlaying = new boolean[18];
         initComponents();
     }
 
+    
+    private void setVariables(){
+        for(int i = 0; i < clips.length ; i++){
+            Clip clip = null;
+            boolean bool = false;
+            clips[i] = clip;
+            isPlaying[i] = bool;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +91,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jButton18 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton20 = new javax.swing.JButton();
+        jSlider1 = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -289,19 +307,36 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jButton20.setBackground(new java.awt.Color(0, 0, 0));
         jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon2.png"))); // NOI18N
 
+        jSlider1.setMajorTickSpacing(10);
+        jSlider1.setMinorTickSpacing(10);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setValue(100);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(450, 450, 450)
-                .addComponent(jButton20)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(450, 450, 450)
+                        .addComponent(jButton20))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(141, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(jButton20)
                 .addGap(44, 44, 44))
         );
@@ -348,7 +383,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addContainerGap(269, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -376,7 +411,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                     .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -403,46 +438,46 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        public void startClip(int x, AudioInputStream audioInputStream) throws LineUnavailableException, IOException{
+                    clips[x] = AudioSystem.getClip();
+                    clips[x].open(audioInputStream);
+                    clips[x].start();
+                    clips[x].loop(Clip.LOOP_CONTINUOUSLY);
+                    isPlaying[x] = true;
+    }
+    
+    private void stopClip(int x){
+                        this.clips[x].loop(0);
+                this.clips[x].stop();
+                this.clips[x].flush();
+                isPlaying[x] = false;
+    }
     
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-         try {
-             if(!isPlaying1){
+        try {
+             if(!isPlaying[0]){
                     audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Clap-1.wav"));
-
-                    clip = AudioSystem.getClip();
-                    clip.open(audioInputStream);
-                    clip.start();
-                    clip.loop(Clip.LOOP_CONTINUOUSLY); 
-                    isPlaying1 = true;
+                    startClip(0, audioInputStream);
 
             }else{
-                this.clip.loop(0);
-                this.clip.stop();
-                this.clip.flush();
-                isPlaying1 = false;
+                 stopClip(0);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 try {
-             if(!isPlaying2){
+             if(!isPlaying[1]){
                     audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Hat-1.wav"));
-                    clip2 = AudioSystem.getClip();
-                    clip2.open(audioInputStream);
-                    clip2.start();
-                    clip2.loop(Clip.LOOP_CONTINUOUSLY); 
-                    isPlaying2 = true;
-
+                    startClip(1, audioInputStream);
             }else{
-                this.clip2.loop(0);
-                this.clip2.stop();
-                this.clip2.flush();
-                isPlaying2 = false;
+                 stopClip(1);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -451,19 +486,11 @@ try {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
             try {
-             if(!isPlaying3){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/long_riser.wav"));
-                    clip3 = AudioSystem.getClip();
-                    clip3.open(audioInputStream);
-                    clip3.start();
-                    clip3.loop(Clip.LOOP_CONTINUOUSLY); 
-                    isPlaying3 = true;
-
+             if(!isPlaying[2]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Snap-2.wav"));
+                    startClip(2, audioInputStream);
             }else{
-                this.clip3.loop(0);
-                this.clip3.stop();
-                this.clip3.flush();
-                isPlaying3 = false;
+                 stopClip(2);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -471,66 +498,244 @@ try {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String audioFilePath = "src/audio/FX/noise_impact_long.wav";
-            audioPlayer.play(audioFilePath);
+       try {
+             if(!isPlaying[3]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/dark-kick.wav"));
+                    startClip(3, audioInputStream);
+
+            }else{
+                 stopClip(3);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }           
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String audioFilePath = "src/audio/FX/synth_riser.wav";
-            audioPlayer.play(audioFilePath);
+        try {
+             if(!isPlaying[4]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/open-hat-1.wav"));
+                    startClip(4, audioInputStream);
+
+            }else{
+                 stopClip(4);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String audioFilePath = "src/audio/FX/vinyl_noise.wav";
-            audioPlayer.play(audioFilePath);    }//GEN-LAST:event_jButton6ActionPerformed
+        try {
+             if(!isPlaying[5]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/drum/Clap-2.wav"));
+                    startClip(5, audioInputStream);
+
+            }else{
+                 stopClip(5);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
+	}//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+        try {
+             if(!isPlaying[6]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/chorus-arp-140.wav"));
+                    startClip(6, audioInputStream);
+
+            }else{
+                 stopClip(6);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }      }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+        try {
+             if(!isPlaying[7]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/verse-rhodes-150-B.wav"));
+                    startClip(7, audioInputStream);
+
+            }else{
+                 stopClip(7);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }      }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        try {
+             if(!isPlaying[8]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/verse-arp-140.wav"));
+                    startClip(8, audioInputStream);
+
+            }else{
+                 stopClip(8);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        try {
+             if(!isPlaying[9]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/chorus-chords-mid-1-80.wav"));
+                    startClip(9, audioInputStream);
+
+            }else{
+                 stopClip(9);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }      }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        try {
+             if(!isPlaying[10]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/Chorus-Top-lead-75.wav"));
+                    startClip(10, audioInputStream);
+
+            }else{
+                 stopClip(10);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        try {
+             if(!isPlaying[11]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/SYNTHS/chorus-high-chords-150-B.wav"));
+                    startClip(11, audioInputStream);
+
+            }else{
+                 stopClip(11);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+        try {
+             if(!isPlaying[12]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/long_riser.wav"));
+                    startClip(12, audioInputStream);
+
+            }else{
+                 stopClip(12);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+        try {
+             if(!isPlaying[13]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/cavey.wav"));
+                    startClip(13, audioInputStream);
+
+            }else{
+                 stopClip(13);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
+        try {
+             if(!isPlaying[14]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/8_bar_riser.wav"));
+                    startClip(14, audioInputStream);
+
+            }else{
+                 stopClip(14);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
+        try {
+             if(!isPlaying[15]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/synth_riser.wav"));
+                    startClip(15, audioInputStream);
+
+            }else{
+                 stopClip(15);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton17ActionPerformed
+        try {
+             if(!isPlaying[16]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/noise_impact_long.wav"));
+                    startClip(16, audioInputStream);
+
+            }else{
+                 stopClip(16);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton18ActionPerformed
+        try {
+             if(!isPlaying[17]){
+                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("audio/FX/vinyl_noise-3.wav"));
+                    startClip(17, audioInputStream);
+
+            }else{
+                 stopClip(17);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+
+        
+         for (int i=0; i<clips.length; i++) {
+             if(clips[i].isActive()){
+             FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);
+             gainControl.setValue(getVolume(jSlider1.getValue())); // Reduce volume by 10 decibels.
+             clips[i].start();
+             }
+         }
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private float getVolume(int sliderVal){
+        if(sliderVal<1){
+            return -80.0F;
+        }else if(sliderVal<=10){
+            return -71.4F;
+        }else if(sliderVal>10 && sliderVal<=20){
+            return -62.8F;
+        }else if(sliderVal>20 && sliderVal<=30){
+            return -54.2F;
+        }else if(sliderVal>30 && sliderVal<=40){
+            return -45.6F;
+        }else if(sliderVal>40 && sliderVal<=50){
+            return -37.0F;
+        }else if(sliderVal>50 && sliderVal<=60){
+            return -65.4F;
+        }else if(sliderVal>60 && sliderVal<=70){
+            return -19.8F;
+        }else if(sliderVal>70 && sliderVal<=80){
+            return -11.2F;
+        }else if(sliderVal>80 && sliderVal<=90){
+            return -2.6F;
+        }else{
+            return 6.0F;
+        }
+        
+    }
 
     /**
      * @param args the command line arguments
@@ -624,6 +829,7 @@ try {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JSlider jSlider1;
     public javax.swing.JLabel jUsernameWelcomeLabel;
     // End of variables declaration//GEN-END:variables
 
