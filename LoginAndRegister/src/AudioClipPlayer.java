@@ -1,5 +1,4 @@
 
-import static MainPage.jSlider1;
 import java.awt.Color;
 import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
