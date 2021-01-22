@@ -17,12 +17,13 @@ public class LoginAndRegister {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        RegisterForm regForm = new RegisterForm();
-        regForm.setVisible(true);
-        regForm.pack();
-        regForm.setLocationRelativeTo(null);
-        regForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // main method called when run application 
+        //Instanciates a login screen
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        loginForm.pack();
+        loginForm.setLocationRelativeTo(null);
+        loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
     
