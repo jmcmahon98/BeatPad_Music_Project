@@ -34,7 +34,9 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
      boolean [] isPlaying;
      AudioInputStream audioInputStream = null;
      Clip [] clips;
-     String folder = "samples_1/";
+     static String folder = "samples_1/";
+             AudioClipPlayer myPlayer;
+
 
 // 
 
@@ -45,17 +47,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
     public MainPage() {
         this.clips = new Clip[30];
         this.isPlaying = new boolean[30];
+        myPlayer = new AudioClipPlayer(isPlaying, clips, audioInputStream);
         initComponents();
-    }
-
-    
-    private void setVariables(){
-        for(int i = 0; i < clips.length ; i++){
-            Clip clip = null;
-            boolean bool = false;
-            clips[i] = clip;
-            isPlaying[i] = bool;
-        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,9 +84,9 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton20 = new javax.swing.JButton();
         jSlider1 = new javax.swing.JSlider();
         jButton19 = new javax.swing.JButton();
+        jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
@@ -104,7 +97,6 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jButton28 = new javax.swing.JButton();
         jButton29 = new javax.swing.JButton();
         jButton30 = new javax.swing.JButton();
-        jButton31 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -342,9 +334,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButton20.setBackground(new java.awt.Color(0, 0, 0));
-        jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon2.png"))); // NOI18N
-
+        jSlider1.setBackground(new java.awt.Color(187, 187, 187));
+        jSlider1.setForeground(new java.awt.Color(255, 255, 255));
         jSlider1.setMajorTickSpacing(10);
         jSlider1.setMinorTickSpacing(10);
         jSlider1.setPaintTicks(true);
@@ -360,23 +351,16 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(450, 450, 450)
-                        .addComponent(jButton20))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(996, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                .addComponent(jButton20)
-                .addGap(44, 44, 44))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jButton19.setBackground(new java.awt.Color(0, 204, 255));
@@ -388,9 +372,18 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
             }
         });
 
-        jButton21.setBackground(new java.awt.Color(0, 204, 255));
+        jButton20.setBackground(new java.awt.Color(0, 204, 255));
+        jButton20.setForeground(new java.awt.Color(255, 255, 255));
+        jButton20.setText("Synth 10");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+
+        jButton21.setBackground(new java.awt.Color(255, 137, 33));
         jButton21.setForeground(new java.awt.Color(255, 255, 255));
-        jButton21.setText("Synth 10");
+        jButton21.setText("FX 1");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton21ActionPerformed(evt);
@@ -399,7 +392,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton22.setBackground(new java.awt.Color(255, 137, 33));
         jButton22.setForeground(new java.awt.Color(255, 255, 255));
-        jButton22.setText("FX 1");
+        jButton22.setText("FX 2");
         jButton22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton22ActionPerformed(evt);
@@ -408,7 +401,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton23.setBackground(new java.awt.Color(255, 137, 33));
         jButton23.setForeground(new java.awt.Color(255, 255, 255));
-        jButton23.setText("FX 2");
+        jButton23.setText("FX 3");
         jButton23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton23ActionPerformed(evt);
@@ -417,7 +410,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton24.setBackground(new java.awt.Color(255, 137, 33));
         jButton24.setForeground(new java.awt.Color(255, 255, 255));
-        jButton24.setText("FX 3");
+        jButton24.setText("FX 4");
         jButton24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton24ActionPerformed(evt);
@@ -426,7 +419,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton25.setBackground(new java.awt.Color(255, 137, 33));
         jButton25.setForeground(new java.awt.Color(255, 255, 255));
-        jButton25.setText("FX 4");
+        jButton25.setText("FX 5");
         jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton25ActionPerformed(evt);
@@ -435,7 +428,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton26.setBackground(new java.awt.Color(255, 137, 33));
         jButton26.setForeground(new java.awt.Color(255, 255, 255));
-        jButton26.setText("FX 5");
+        jButton26.setText("FX 6");
         jButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton26ActionPerformed(evt);
@@ -444,7 +437,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton27.setBackground(new java.awt.Color(255, 137, 33));
         jButton27.setForeground(new java.awt.Color(255, 255, 255));
-        jButton27.setText("FX 6");
+        jButton27.setText("FX 7");
         jButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton27ActionPerformed(evt);
@@ -453,7 +446,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton28.setBackground(new java.awt.Color(255, 137, 33));
         jButton28.setForeground(new java.awt.Color(255, 255, 255));
-        jButton28.setText("FX 7");
+        jButton28.setText("FX 8");
         jButton28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton28ActionPerformed(evt);
@@ -462,7 +455,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton29.setBackground(new java.awt.Color(255, 137, 33));
         jButton29.setForeground(new java.awt.Color(255, 255, 255));
-        jButton29.setText("FX 8");
+        jButton29.setText("FX 9");
         jButton29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton29ActionPerformed(evt);
@@ -471,19 +464,10 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         jButton30.setBackground(new java.awt.Color(255, 137, 33));
         jButton30.setForeground(new java.awt.Color(255, 255, 255));
-        jButton30.setText("FX 9");
+        jButton30.setText("FX 10");
         jButton30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton30ActionPerformed(evt);
-            }
-        });
-
-        jButton31.setBackground(new java.awt.Color(255, 137, 33));
-        jButton31.setForeground(new java.awt.Color(255, 255, 255));
-        jButton31.setText("FX 10");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
             }
         });
 
@@ -517,7 +501,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -537,6 +521,8 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -553,9 +539,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(269, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -584,9 +568,10 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                     .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -595,8 +580,7 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
                     .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -624,438 +608,166 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        public void startClip(int x, AudioInputStream audioInputStream) throws LineUnavailableException, IOException{
-                    clips[x] = AudioSystem.getClip();
-       
-                    clips[x].open(audioInputStream);
-                    FloatControl gainControl = (FloatControl) clips[x].getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(getVolume(jSlider1.getValue()));
-                    clips[x].start();
-                    clips[x].loop(Clip.LOOP_CONTINUOUSLY);
-                    isPlaying[x] = true;
-    }
-    
-    private void stopClip(int x){
-                        this.clips[x].loop(0);
-                this.clips[x].stop();
-                this.clips[x].flush();
-                isPlaying[x] = false;
-    }
-    
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        try {
-             if(!isPlaying[0]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/claps/clap-1.wav"));
-                    startClip(0, audioInputStream);
-
-            }else{
-                 stopClip(0);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        String fileLoc = "drums/claps/clap-1.wav";
+        myPlayer.startStop(0, fileLoc, jButton1); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
-    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-try {
-             if(!isPlaying[1]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/claps/clap-2.wav"));
-                    startClip(1, audioInputStream);
-            }else{
-                 stopClip(1);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+
+        String fileLoc = "drums/claps/clap-2.wav";
+        myPlayer.startStop(1, fileLoc, jButton2);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-            try {
-             if(!isPlaying[2]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/hats/hat-1.wav"));
-                    startClip(2, audioInputStream);
-            }else{
-                 stopClip(2);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+
+       String fileLoc = "drums/hats/hat-1.wav";
+        myPlayer.startStop(2, fileLoc, jButton3);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       try {
-             if(!isPlaying[3]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/hats/hat-2.wav"));
-                    startClip(3, audioInputStream);
-
-            }else{
-                 stopClip(3);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }           
+    
+        String fileLoc = "drums/hats/hat-2.wav";
+        myPlayer.startStop(3, fileLoc, jButton4);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        try {
-             if(!isPlaying[4]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/kicks/kick-1.wav"));
-                    startClip(4, audioInputStream);
-
-            }else{
-                 stopClip(4);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }  
+ 
+        String fileLoc = "drums/kicks/kick-1.wav";
+        myPlayer.startStop(4, fileLoc, jButton5);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        try {
-             if(!isPlaying[5]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/kicks/kick-2.wav"));
-                    startClip(5, audioInputStream);
-
-            }else{
-                 stopClip(5);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }  
+  
+        String fileLoc = "drums/kicks/kick-2.wav";
+        myPlayer.startStop(5, fileLoc, jButton6);
 	}//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        try {
-             if(!isPlaying[6]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/open-hats/open-hat-1.wav"));
-                    startClip(6, audioInputStream);
+		String fileLoc = "drums/open-hats/open-hat-1.wav";
+        myPlayer.startStop(6, fileLoc, jButton7);		
+		}//GEN-LAST:event_jButton7ActionPerformed
 
-            }else{
-                 stopClip(6);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }      }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        try {
-             if(!isPlaying[7]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/open-hats/open-hat-2.wav"));
-                    startClip(7, audioInputStream);
-
-            }else{
-                 stopClip(7);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }      }//GEN-LAST:event_jButton8ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+		String fileLoc = "drums/open-hats/open-hat-2.wav";
+        myPlayer.startStop(7, fileLoc, jButton8);	
+		}                                        
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        try {
-             if(!isPlaying[8]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/snaps/snap-1.wav"));
-                    startClip(8, audioInputStream);
-
-            }else{
-                 stopClip(8);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }  
+		String fileLoc = "drums/snare/snare-1.wav";
+        myPlayer.startStop(8, fileLoc, jButton9);			
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        try {
-             if(!isPlaying[9]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "drums/snaps/snap-2.wav"));
-                    startClip(9, audioInputStream);
-
-            }else{
-                 stopClip(9);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }      }//GEN-LAST:event_jButton10ActionPerformed
+		String fileLoc = "drums/snare/snare-2.wav";
+        myPlayer.startStop(9, fileLoc, jButton10);	
+  }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        try {
-             if(!isPlaying[10]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-1.wav"));
-                    startClip(10, audioInputStream);
-
-            }else{
-                 stopClip(10);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+		String fileLoc = "synths/synth-1.wav";
+        myPlayer.startStop(10, fileLoc, jButton11);	
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        try {
-             if(!isPlaying[11]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-2.wav"));
-                    startClip(11, audioInputStream);
-
-            }else{
-                 stopClip(11);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+		String fileLoc = "synths/synth-2.wav";
+        myPlayer.startStop(11, fileLoc, jButton12);	
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        try {
-             if(!isPlaying[12]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-3.wav"));
-                    startClip(12, audioInputStream);
-
-            }else{
-                 stopClip(12);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton13ActionPerformed
+		String fileLoc = "synths/synth-3.wav";
+        myPlayer.startStop(12, fileLoc, jButton13);	
+		}//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        try {
-             if(!isPlaying[13]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-4.wav"));
-                    startClip(13, audioInputStream);
-
-            }else{
-                 stopClip(13);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton14ActionPerformed
+		String fileLoc = "synths/synth-4.wav";
+        myPlayer.startStop(13, fileLoc, jButton14);	    
+		}//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        try {
-             if(!isPlaying[14]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-5.wav"));
-                    startClip(14, audioInputStream);
-
-            }else{
-                 stopClip(14);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton15ActionPerformed
+		String fileLoc = "synths/synth-5.wav";
+        myPlayer.startStop(14, fileLoc, jButton15);	 
+		}//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        try {
-             if(!isPlaying[15]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-6.wav"));
-                    startClip(15, audioInputStream);
-
-            }else{
-                 stopClip(15);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton16ActionPerformed
+		String fileLoc = "synths/synth-6.wav";
+        myPlayer.startStop(15, fileLoc, jButton16);	
+}//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        try {
-             if(!isPlaying[16]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-7.wav"));
-                    startClip(16, audioInputStream);
-
-            }else{
-                 stopClip(16);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton17ActionPerformed
+		String fileLoc = "synths/synth-7.wav";
+        myPlayer.startStop(16, fileLoc, jButton17);	
+}//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        try {
-             if(!isPlaying[17]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-8.wav"));
-                    startClip(17, audioInputStream);
-
-            }else{
-                 stopClip(17);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton18ActionPerformed
+		String fileLoc = "synths/synth-8.wav";
+        myPlayer.startStop(17, fileLoc, jButton18);	
+		}//GEN-LAST:event_jButton18ActionPerformed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
 
-        
-         for (int i=0; i<clips.length; i++) {
-             System.out.println("it :  " + i);
-             if(isPlaying[i]){
-             System.out.println("it :  " + i);
-             FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);
-             gainControl.setValue(getVolume(jSlider1.getValue())); // Reduce volume by 10 decibels.
-             clips[i].start();
-             }
-         }
+            myPlayer.setVolume();
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        try {
-             if(!isPlaying[18]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-9.wav"));
-                    startClip(18, audioInputStream);
+		String fileLoc = "synths/synth-9.wav";
+        myPlayer.startStop(18, fileLoc, jButton19);	
+}//GEN-LAST:event_jButton19ActionPerformed
 
-            }else{
-                 stopClip(18);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton19ActionPerformed
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        String fileLoc = "synths/synth-10.wav";
+        myPlayer.startStop(19, fileLoc, jButton20);	
+		}//GEN-LAST:event_jButton20ActionPerformed
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        try {
-             if(!isPlaying[19]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "synths/synth-10.wav"));
-                    startClip(19, audioInputStream);
-
-            }else{
-                 stopClip(19);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton21ActionPerformed
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+		String fileLoc = "fx/fx-1.wav";
+        myPlayer.startStop(20, fileLoc, jButton21);
+		}                                         
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        try {
-             if(!isPlaying[20]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-1.wav"));
-                    startClip(20, audioInputStream);
+		String fileLoc = "fx/fx-2.wav";
+        myPlayer.startStop(21, fileLoc, jButton22);
+		}//GEN-LAST:event_jButton22ActionPerformed
 
-            }else{
-                 stopClip(20);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton22ActionPerformed
-
-    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        try {
-             if(!isPlaying[21]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-2.wav"));
-                    startClip(21, audioInputStream);
-
-            }else{
-                 stopClip(21);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton23ActionPerformed
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+		String fileLoc = "fx/fx-3.wav";
+        myPlayer.startStop(22, fileLoc, jButton23);
+    }                                         
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        try {
-             if(!isPlaying[22]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-3.wav"));
-                    startClip(22, audioInputStream);
-
-            }else{
-                 stopClip(22);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton24ActionPerformed
+		String fileLoc = "fx/fx-4.wav";
+        myPlayer.startStop(23, fileLoc, jButton24);
+		}//GEN-LAST:event_jButton24ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        try {
-             if(!isPlaying[23]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-4.wav"));
-                    startClip(23, audioInputStream);
-
-            }else{
-                 stopClip(23);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton25ActionPerformed
+		String fileLoc = "fx/fx-5.wav";
+        myPlayer.startStop(24, fileLoc, jButton25);
+		}//GEN-LAST:event_jButton25ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        try {
-             if(!isPlaying[24]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-5.wav"));
-                    startClip(24, audioInputStream);
-
-            }else{
-                 stopClip(24);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton26ActionPerformed
+		String fileLoc = "fx/fx-6.wav";
+        myPlayer.startStop(25, fileLoc, jButton26);
+		}//GEN-LAST:event_jButton26ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
-        try {
-             if(!isPlaying[25]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-6.wav"));
-                    startClip(25, audioInputStream);
-
-            }else{
-                 stopClip(25);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton27ActionPerformed
+		String fileLoc = "fx/fx-7.wav";
+        myPlayer.startStop(26, fileLoc, jButton27);
+		}//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-        try {
-             if(!isPlaying[26]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-7.wav"));
-                    startClip(26, audioInputStream);
-
-            }else{
-                 stopClip(26);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton28ActionPerformed
+       		String fileLoc = "fx/fx-8.wav";
+        myPlayer.startStop(27, fileLoc, jButton28);
+		}//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-        try {
-             if(!isPlaying[27]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-8.wav"));
-                    startClip(27, audioInputStream);
-
-            }else{
-                 stopClip(27);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton29ActionPerformed
+		String fileLoc = "fx/fx-9.wav";
+        myPlayer.startStop(28, fileLoc, jButton29);
+		}//GEN-LAST:event_jButton29ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        try {
-             if(!isPlaying[28]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-9.wav"));
-                    startClip(28, audioInputStream);
-
-            }else{
-                 stopClip(28);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton30ActionPerformed
-
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
-        try {
-             if(!isPlaying[29]){
-                    audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(folder + "fx/fx-10.wav"));
-                    startClip(29, audioInputStream);
-
-            }else{
-                 stopClip(29);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }    }//GEN-LAST:event_jButton31ActionPerformed
+		String fileLoc = "fx/fx-10.wav";
+        myPlayer.startStop(29, fileLoc, jButton30);
+		}//GEN-LAST:event_jButton30ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -1067,98 +779,6 @@ try {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private float getVolume(int sliderVal){
-        if(sliderVal<1){
-            return -80.0F;
-        }else if(sliderVal<=10){
-            return -71.4F;
-        }else if(sliderVal>10 && sliderVal<=20){
-            return -62.8F;
-        }else if(sliderVal>20 && sliderVal<=30){
-            return -54.2F;
-        }else if(sliderVal>30 && sliderVal<=40){
-            return -45.6F;
-        }else if(sliderVal>40 && sliderVal<=50){
-            return -37.0F;
-        }else if(sliderVal>50 && sliderVal<=60){
-            return -28.4F;
-        }else if(sliderVal>60 && sliderVal<=70){
-            return -19.8F;
-        }else if(sliderVal>70 && sliderVal<=80){
-            return -11.2F;
-        }else if(sliderVal>80 && sliderVal<=90){
-            return -2.6F;
-        }else{
-            return 6.0F;
-        }
-        
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainPage().setVisible(true);
-            }
-        });
-        
-//        jButton1.addMouseListener(new ClickListener(){
-//            JFrame frame = new JFrame("Double Click Test");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.addMouseListener(new ClickListener() {
-//
-//            @Override
-//            public void singleClick(MouseEvent e) {
-//                System.out.println("single");
-//            }
-//
-//            @Override
-//            public void doubleClick(MouseEvent e) {
-//                System.out.println("double");
-//            }
-//        });
-//        frame.setPreferredSize(new Dimension(200, 200));
-//        frame.pack();
-//        frame.setVisible(true);
-//        });
-    }
-    public void run() {
-    try {
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("NameOfFile.wav"));
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-        clip.loop(Clip.LOOP_CONTINUOUSLY); // There are several different amounts of time you can loop it, so you can change this if you want, or you can just use clip.stop() whenever you want.
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -1185,7 +805,6 @@ try {
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -1198,7 +817,7 @@ try {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSlider jSlider1;
+    public static javax.swing.JSlider jSlider1;
     public javax.swing.JLabel jUsernameWelcomeLabel;
     // End of variables declaration//GEN-END:variables
 
