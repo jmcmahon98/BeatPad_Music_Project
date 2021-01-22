@@ -440,7 +440,10 @@ public class MainPage extends javax.swing.JFrame implements MouseEvent{
 
         public void startClip(int x, AudioInputStream audioInputStream) throws LineUnavailableException, IOException{
                     clips[x] = AudioSystem.getClip();
+       
                     clips[x].open(audioInputStream);
+                    FloatControl gainControl = (FloatControl) clips[x].getControl(FloatControl.Type.MASTER_GAIN);
+                    gainControl.setValue(getVolume(jSlider1.getValue()));
                     clips[x].start();
                     clips[x].loop(Clip.LOOP_CONTINUOUSLY);
                     isPlaying[x] = true;
@@ -702,7 +705,9 @@ try {
 
         
          for (int i=0; i<clips.length; i++) {
-             if(clips[i].isActive()){
+             System.out.println("it :  " + i);
+             if(isPlaying[i]){
+             System.out.println("it :  " + i);
              FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);
              gainControl.setValue(getVolume(jSlider1.getValue())); // Reduce volume by 10 decibels.
              clips[i].start();
@@ -724,7 +729,7 @@ try {
         }else if(sliderVal>40 && sliderVal<=50){
             return -37.0F;
         }else if(sliderVal>50 && sliderVal<=60){
-            return -65.4F;
+            return -28.4F;
         }else if(sliderVal>60 && sliderVal<=70){
             return -19.8F;
         }else if(sliderVal>70 && sliderVal<=80){
