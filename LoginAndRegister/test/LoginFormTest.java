@@ -40,12 +40,17 @@ public class LoginFormTest {
      * Test of main method, of class LoginForm.
      */
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        LoginForm.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void test_login_with_existing_user() {
+        LoginForm loginForm = new LoginForm();
+        boolean result = loginForm.login("test", "test123");
+        assertEquals(true, result);
+    }
+    
+        @Test
+    public void test_login_with_non_incorrect_user_credentials() {
+        LoginForm loginForm = new LoginForm();
+        boolean result = loginForm.login("test", "test");
+        assertEquals(false, result);
     }
     
 }

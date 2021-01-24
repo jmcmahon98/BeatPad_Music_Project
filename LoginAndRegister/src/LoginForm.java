@@ -258,7 +258,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jLoginButtonActionPerformed
 
     
-    private void login(String username, String password){
+    public boolean login(String username, String password){
         PreparedStatement ps;
         ResultSet rs;
 
@@ -274,9 +274,11 @@ public class LoginForm extends javax.swing.JFrame {
             
             if(rs.next()){
                 goToMainPage(username);
+                return true;
             }
             else{
                 JOptionPane.showMessageDialog(null, "Incorrect username or password");
+                return false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);

@@ -21,10 +21,6 @@ public class MainPage extends javax.swing.JFrame{
      static String folder = "samples_1/";
      AudioClipPlayer myPlayer;
 
-
-// 
-
-
     /**
      * Creates new form MainPage
      */
