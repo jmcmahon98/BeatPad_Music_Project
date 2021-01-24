@@ -39,13 +39,27 @@ public class RegisterFormTest {
     /**
      * Test of main method, of class RegisterForm.
      */
+
+    
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        RegisterForm.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void test_checkRegisterFields_all_fields_empty(){
+        RegisterForm regForm = new RegisterForm();
+        boolean result = regForm.checkRegisterFields("", "", "", "");
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void test_checkRegisterFields_different_passwords(){
+        RegisterForm regForm = new RegisterForm();
+        boolean result = regForm.checkRegisterFields("test", "test@gmail.com", "test123", "test321");
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void test_checkRegisterFields_correct_input(){
+        RegisterForm regForm = new RegisterForm();
+        boolean result = regForm.checkRegisterFields("test", "test@gmail.com", "test123", "test123");
+        assertEquals(true, result);
     }
     
 }

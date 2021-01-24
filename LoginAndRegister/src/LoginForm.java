@@ -27,17 +27,6 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);//center form in the screen 
     }
-    
-    //Preferences preference;
-    //boolean rememberPreferences;
-//    
-//    public void rememberMe(){
-//        preference = Preferences.userNodeForPackage(this.getClass());
-//        rememberPreferences = preference.getBoolean("rememberMe", Boolean.valueOf(""));
-//        if(rememberPreferences){
-//            user.setText("Pasword", "");
-//        }
-//                }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -262,12 +251,17 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
         // TODO add your handling code here:
-        
-        PreparedStatement ps;
-        ResultSet rs;
         String username = jUsernameField.getText();
         String password = String.valueOf(jPasswordField.getPassword());
         
+        login(username, password);
+    }//GEN-LAST:event_jLoginButtonActionPerformed
+
+    
+    private void login(String username, String password){
+        PreparedStatement ps;
+        ResultSet rs;
+
         String query = "SELECT * FROM `users` WHERE `username` =? AND `password` =? ";
         
         try {
@@ -279,14 +273,7 @@ public class LoginForm extends javax.swing.JFrame {
             rs = ps.executeQuery();
             
             if(rs.next()){
-                MainPage hjf = new MainPage();
-                hjf.setVisible(true);
-                hjf.setSize(1440, 860);
-                //hjf.pack();
-                hjf.setLocationRelativeTo(null);
-                //hjf.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                hjf.jUsernameWelcomeLabel.setText("Welcome " + username + "!");
-                this.dispose();
+                goToMainPage(username);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Incorrect username or password");
@@ -294,9 +281,16 @@ public class LoginForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-    }//GEN-LAST:event_jLoginButtonActionPerformed
-
+    private void goToMainPage(String username) {
+        MainPage hjf = new MainPage();
+        hjf.setVisible(true);
+        hjf.setSize(1400, 680);
+        hjf.setLocationRelativeTo(null);
+        hjf.jUsernameWelcomeLabel.setText("Welcome " + username + "!");
+        this.dispose();
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -289,43 +289,13 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jUsernameFieldActionPerformed
 
     private void jRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterButtonActionPerformed
-        // TODO add your handling code here:
+        //Assign user inputted fields to variables
         String username = jUsernameField.getText();
         String email = jEmailField.getText();
         String passwordOne = String.valueOf(jPasswordField1.getPassword());
         String passwordTwo = String.valueOf(jPasswordField2.getPassword());
         
-        if(username.equals("")){
-            JOptionPane.showMessageDialog(null, "Username field can't be empty.");
-        }
-        else if(email.equals("")){
-            JOptionPane.showMessageDialog(null, "Email field can't be empty.");
-        }
-        else if(passwordOne.equals("")){
-            JOptionPane.showMessageDialog(null, "Password field can't be empty.");
-        }
-        else if(!passwordOne.equals(passwordTwo)){
-            JOptionPane.showMessageDialog(null, "Passwords do not match.");
-        }
-        else{
-        PreparedStatement ps;
-        String query = "INSERT INTO `users`(`username`, `email`, `password`) VALUES (?,?,?)";
-        
-        try {
-            ps = MyConnection.getConnection().prepareStatement(query);
-            
-            ps.setString(1, username);
-            ps.setString(2, email);
-            ps.setString(3, passwordOne);
-            
-            if(ps.executeUpdate()>0){
-                JOptionPane.showMessageDialog(null, "New User Added");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
+        checkRegisterFields(username, email, passwordOne, passwordTwo);
     }//GEN-LAST:event_jRegisterButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -333,14 +303,18 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabelLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLoginMouseClicked
-        // TODO add your handling code here:
+        goToLoginPage();
+    }//GEN-LAST:event_jLabelLoginMouseClicked
+
+    private void goToLoginPage() {
+        //Go to login page
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
         loginForm.pack();
         loginForm.setLocationRelativeTo(null);
         loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jLabelLoginMouseClicked
+    }
 
     private void jEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmailFieldActionPerformed
         // TODO add your handling code here:
@@ -379,6 +353,52 @@ public class RegisterForm extends javax.swing.JFrame {
                 new RegisterForm().setVisible(true);
             }
         });
+    }
+    
+    //Checks if inputs are valid and if so creates user
+    boolean checkRegisterFields(String username, String email, String passwordOne, String passwordTwo){
+        if(username.equals("")){
+            JOptionPane.showMessageDialog(null, "Username field can't be empty.");
+            return false;
+        }
+        else if(email.equals("")){
+            JOptionPane.showMessageDialog(null, "Email field can't be empty.");
+            return false;
+        }
+        else if(passwordOne.equals("")){
+            JOptionPane.showMessageDialog(null, "Password field can't be empty.");
+            return false;
+        }
+        else if(!passwordOne.equals(passwordTwo)){
+            JOptionPane.showMessageDialog(null, "Passwords do not match.");
+            return false;
+        }
+        else{
+            insertUserIntoDB(username, email, passwordTwo);
+            return true;
+        }
+    }
+    
+    //Inserts user into db 
+    private void insertUserIntoDB(String username, String email, String password){
+                PreparedStatement ps;
+        String query = "INSERT INTO `users`(`username`, `email`, `password`) VALUES (?,?,?)";
+        
+        try {
+            ps = MyConnection.getConnection().prepareStatement(query);
+            
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            
+            if(ps.executeUpdate()>0){
+                JOptionPane.showMessageDialog(null, "New User Added");
+                        goToLoginPage();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
