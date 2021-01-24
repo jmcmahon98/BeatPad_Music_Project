@@ -3,15 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myBeatpad.Controller">
    <children>
       <SplitPane dividerPositions="0.20040080160320642" prefHeight="500.0" prefWidth="800.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="800.0">
                <children>
                   <Slider layoutX="9.0" layoutY="47.0" />
-                  <TextArea layoutY="85.0" prefHeight="155.0" prefWidth="159.0" text="Test" />
-                  <Label fx:id="label" layoutX="14.0" layoutY="249.0" text="Label" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -29,7 +27,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="b00" mnemonicParsing="false" onAction="#dothis" prefHeight="170.0" prefWidth="170.0" text="Button" />
+                        <Button fx:id="b00" mnemonicParsing="false" onAction="#b" prefHeight="170.0" prefWidth="170.0" text="Button" />
                         <Button fx:id="b01" mnemonicParsing="false" prefHeight="170.0" prefWidth="170.0" text="Button" GridPane.columnIndex="1" />
                         <Button fx:id="b02" layoutX="169.0" layoutY="10.0" mnemonicParsing="false" prefHeight="170.0" prefWidth="170.0" text="Button" GridPane.columnIndex="2" />
                         <Button fx:id="b03" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="170.0" prefWidth="170.0" text="Button" GridPane.columnIndex="3" />
