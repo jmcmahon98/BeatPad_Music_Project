@@ -34,4 +34,28 @@ public class LoginFormTest {
         assertEquals(false, result);
     }
     
+    
+     /**
+     * Tests of checkLoginFields method, of class LoginForm.
+     */
+        @Test
+    public void test_checkLoginFields_username_field_empty(){
+        LoginForm loginForm = new LoginForm();
+        boolean result = loginForm.checkLoginFields("", "test");
+        assertEquals(false, result);
+    }
+    @Test
+    public void test_checkLoginFields_password_field_empty(){
+        LoginForm loginForm = new LoginForm();
+        boolean result = loginForm.checkLoginFields("test", "");
+        assertEquals(false, result);
+    }
+    
+    @Test
+    public void test_checkLoginFields_correc_input(){
+        LoginForm loginForm = new LoginForm();
+        boolean result = loginForm.checkLoginFields("test", "test");
+        assertEquals(true, result);
+    }
+    
 }
