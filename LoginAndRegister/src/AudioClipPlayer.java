@@ -49,7 +49,7 @@ public class AudioClipPlayer {
                     jButton.setOpaque(false);
                     clips[x].open(audioInputStream);
                     FloatControl gainControl = (FloatControl) clips[x].getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(getVolume((MainPage.jSlider1).getValue()));
+                    gainControl.setValue(getVolumeValue((MainPage.jSlider1).getValue()));
                     clips[x].start();
                     clips[x].loop(Clip.LOOP_CONTINUOUSLY);
                     isPlaying[x] = true;
@@ -57,14 +57,14 @@ public class AudioClipPlayer {
     }
     
     private void stopClip(int x,JButton jButton){
-                            jButton.setOpaque(true);
-                    jButton.setForeground(Color.WHITE);
-                        this.clips[x].loop(0);
+                jButton.setOpaque(true);
+                jButton.setForeground(Color.WHITE);
+                this.clips[x].loop(0);
                 this.clips[x].stop();
                 this.clips[x].flush();
                 isPlaying[x] = false;
     }
-    private float getVolume(int sliderVal){
+    public static float getVolumeValue(int sliderVal){
         if(sliderVal<1){
             return -80.0F;
         }else if(sliderVal<=10){
@@ -91,13 +91,17 @@ public class AudioClipPlayer {
         
     }
     
-    public void setVolume(){
-                 for (int i=0; i<clips.length; i++) {
-             if(isPlaying[i]){
-             FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);
-             gainControl.setValue(getVolume(MainPage.jSlider1.getValue())); // Reduce volume by 10 decibels.
-             clips[i].start();
-             }
+    public void setVolume(int sliderVal){
+            for (int i=0; i<clips.length; i++) {
+            setVolumeOnSingleClip(i, sliderVal);
          }
+    }
+
+    public void setVolumeOnSingleClip(int i, int sliderVal) {
+        if(isPlaying[i]){
+            FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(getVolumeValue(sliderVal));
+            clips[i].start();
+        }
     }
 }

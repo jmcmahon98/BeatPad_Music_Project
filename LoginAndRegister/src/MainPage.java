@@ -14,8 +14,8 @@ import javax.sound.sampled.Clip;
  */
 public class MainPage extends javax.swing.JFrame{
 
+    AudioInputStream audioInputStream;
      boolean [] isPlaying;
-     AudioInputStream audioInputStream;
      Clip [] clips;
      static String folder = "samples_1/";
      AudioClipPlayer myPlayer;
@@ -685,7 +685,7 @@ public class MainPage extends javax.swing.JFrame{
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
 
-            myPlayer.setVolume();
+            myPlayer.setVolume(jSlider1.getValue());
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
