@@ -30,17 +30,6 @@ public class AudioClipPlayerTest {
     private AudioInputStream audioInputStream;
     private AudioClipPlayer audioClipPlayer;
     
-    public AudioClipPlayerTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() throws UnsupportedAudioFileException, IOException {
      isPlaying = new boolean[30];
@@ -50,40 +39,6 @@ public class AudioClipPlayerTest {
      
 
     }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of startStop method, of class AudioClipPlayer.
-     */
-//    @Test
-//    public void testStartStop() {
-//        System.out.println("startStop");
-//        int buttonNum = 0;
-//        String fileLocation = "";
-//        JButton jButton = null;
-//        AudioClipPlayer instance = null;
-//        instance.startStop(buttonNum, fileLocation, jButton);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of startClip method, of class AudioClipPlayer.
-//     */
-//    @Test
-//    public void testStartClip() throws Exception {
-//        System.out.println("startClip");
-//        int x = 0;
-//        AudioInputStream audioInputStream = null;
-//        JButton jButton = null;
-//        AudioClipPlayer instance = null;
-//        instance.startClip(x, audioInputStream, jButton);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
     /**
      * Test of setVolume method, of class AudioClipPlayer.

@@ -17,27 +17,8 @@ import static org.junit.Assert.*;
  */
 public class LoginFormTest {
     
-    public LoginFormTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of main method, of class LoginForm.
+     /**
+     * Tests of login method, of class LoginForm.
      */
     @Test
     public void test_login_with_existing_user() {

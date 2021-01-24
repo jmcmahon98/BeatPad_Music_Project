@@ -17,29 +17,9 @@ import static org.junit.Assert.*;
  */
 public class RegisterFormTest {
     
-    public RegisterFormTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of main method, of class RegisterForm.
+        /**
+     * Tests of checkRegisterFields method, of class RegisterForm.
      */
-
     
     @Test
     public void test_checkRegisterFields_all_fields_empty(){
