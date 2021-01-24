@@ -1,6 +1,7 @@
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
+import javax.swing.JFrame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,6 +46,7 @@ public class MainPage extends javax.swing.JFrame{
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jUsernameWelcomeLabel = new javax.swing.JLabel();
+        jButton31 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jSlider1 = new javax.swing.JSlider();
@@ -97,6 +99,14 @@ public class MainPage extends javax.swing.JFrame{
         jUsernameWelcomeLabel.setFont(new java.awt.Font("Typo Round Regular Demo", 0, 24)); // NOI18N
         jUsernameWelcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
 
+        jButton31.setForeground(new java.awt.Color(60, 63, 65));
+        jButton31.setText("Log Out");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -104,7 +114,9 @@ public class MainPage extends javax.swing.JFrame{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jUsernameWelcomeLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton31)
+                .addGap(96, 96, 96))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(607, 607, 607)
@@ -117,6 +129,10 @@ public class MainPage extends javax.swing.JFrame{
                 .addGap(39, 39, 39)
                 .addComponent(jUsernameWelcomeLabel)
                 .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton31)
+                .addGap(28, 28, 28))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(18, 18, 18)
@@ -124,7 +140,7 @@ public class MainPage extends javax.swing.JFrame{
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(15, 15, 15));
+        jPanel2.setBackground(new java.awt.Color(59, 59, 59));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sound Samples 1", "Sound Samples 2" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -758,6 +774,18 @@ public class MainPage extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+        goToLoginPage();
+    }//GEN-LAST:event_jButton31ActionPerformed
+    private void goToLoginPage() {
+        //Go to login page
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        loginForm.pack();
+        loginForm.setLocationRelativeTo(null);
+        loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -784,6 +812,7 @@ public class MainPage extends javax.swing.JFrame{
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
+    private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

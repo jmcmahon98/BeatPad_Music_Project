@@ -89,7 +89,7 @@ public class AudioClipPlayerTest {
      * Test of setVolume method, of class AudioClipPlayer.
      */
     @Test
-    public void test_SetVolume() throws LineUnavailableException, IOException {
+    public void test_setVolume() throws LineUnavailableException, IOException {
             isPlaying[0] = true;
             clips[0] = AudioSystem.getClip();
             clips[0].open(audioInputStream);
@@ -99,9 +99,11 @@ public class AudioClipPlayerTest {
             assertEquals(-2.6F, gainControl.getValue(), 0.01);
     }
     
-    
+        /**
+     * Test of getVolumeValue method, of class AudioClipPlayer.
+     */
     @Test
-    public void test_GetVolumeValue(){
+    public void test_getVolumeValue(){
         float result = audioClipPlayer.getVolumeValue(45);
         assertEquals(-37.0F, result, 0.01);
     }

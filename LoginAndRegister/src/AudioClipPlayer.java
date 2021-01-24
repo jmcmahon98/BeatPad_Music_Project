@@ -35,7 +35,6 @@ public class AudioClipPlayer {
              if(!isPlaying[buttonNum]){
                     audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(MainPage.folder + fileLocation));
                     startClip(buttonNum, audioInputStream, jButton);
-
             }else{
                  stopClip(buttonNum, jButton);
             }
@@ -43,7 +42,8 @@ public class AudioClipPlayer {
             ex.printStackTrace();
         }
     }
-            public void startClip(int x, AudioInputStream audioInputStream, JButton jButton) throws LineUnavailableException, IOException{
+    
+    public void startClip(int x, AudioInputStream audioInputStream, JButton jButton) throws LineUnavailableException, IOException{
                     clips[x] = AudioSystem.getClip();
                     jButton.setForeground(jButton.getBackground());
                     jButton.setOpaque(false);
