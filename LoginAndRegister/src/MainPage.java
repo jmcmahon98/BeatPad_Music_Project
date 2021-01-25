@@ -3,12 +3,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author dylon
@@ -761,7 +755,6 @@ public class MainPage extends javax.swing.JFrame{
 		}//GEN-LAST:event_jButton30ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
         String selectedItem = jComboBox1.getSelectedItem().toString();
         if(selectedItem.matches("Sound Samples 1")){
             folder = "samples_1/";
@@ -773,8 +766,9 @@ public class MainPage extends javax.swing.JFrame{
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
         goToLoginPage();
     }//GEN-LAST:event_jButton31ActionPerformed
+    
+//Go to login page
     private void goToLoginPage() {
-        //Go to login page
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
         loginForm.pack();

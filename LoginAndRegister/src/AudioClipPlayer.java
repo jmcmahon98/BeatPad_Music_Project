@@ -8,18 +8,13 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JButton;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author dylon
  */
 public class AudioClipPlayer {
 
+    //Constructor
     public AudioClipPlayer(boolean[] isPlaying, Clip[] clips, AudioInputStream audioInputStream) {
         this.isPlaying = isPlaying;
         this.clips = clips;
@@ -30,6 +25,8 @@ public class AudioClipPlayer {
     private Clip [] clips;
     private AudioInputStream audioInputStream;
     
+    
+    //Checks if the clip is already playing, if not then starts clip, else stops clip
     public void startStop(int buttonNum, String fileLocation, JButton jButton){
         try {
              if(!isPlaying[buttonNum]){
@@ -43,10 +40,11 @@ public class AudioClipPlayer {
         }
     }
     
+    //starts playing clip in a continuous loop
     public void startClip(int x, AudioInputStream audioInputStream, JButton jButton) throws LineUnavailableException, IOException{
-                    clips[x] = AudioSystem.getClip();
                     jButton.setForeground(jButton.getBackground());
                     jButton.setOpaque(false);
+                    clips[x] = AudioSystem.getClip();
                     clips[x].open(audioInputStream);
                     FloatControl gainControl = (FloatControl) clips[x].getControl(FloatControl.Type.MASTER_GAIN);
                     gainControl.setValue(getVolumeValue((MainPage.jSlider1).getValue()));
@@ -56,6 +54,7 @@ public class AudioClipPlayer {
                     
     }
     
+    //stops clip
     private void stopClip(int x,JButton jButton){
                 jButton.setOpaque(true);
                 jButton.setForeground(Color.WHITE);
@@ -64,6 +63,8 @@ public class AudioClipPlayer {
                 this.clips[x].flush();
                 isPlaying[x] = false;
     }
+    
+    //returns volume level(decibels) based on slider value 
     public static float getVolumeValue(int sliderVal){
         if(sliderVal<1){
             return -80.0F;
@@ -88,15 +89,16 @@ public class AudioClipPlayer {
         }else{
             return 6.0F;
         }
-        
     }
     
+    //sets volume for each clip 
     public void setVolume(int sliderVal){
             for (int i=0; i<clips.length; i++) {
             setVolumeOnSingleClip(i, sliderVal);
          }
     }
 
+    //sets volume of a clip
     public void setVolumeOnSingleClip(int i, int sliderVal) {
         if(isPlaying[i]){
             FloatControl gainControl = (FloatControl) clips[i].getControl(FloatControl.Type.MASTER_GAIN);

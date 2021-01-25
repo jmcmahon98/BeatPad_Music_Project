@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author dylon
@@ -286,8 +280,8 @@ public class RegisterForm extends javax.swing.JFrame {
         goToLoginPage();
     }//GEN-LAST:event_jLabelLoginMouseClicked
 
+    //Go to login page
     private void goToLoginPage() {
-        //Go to login page
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
         loginForm.pack();

@@ -4,15 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -233,15 +226,17 @@ public class LoginForm extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabelMinMouseClicked
 
+    //if login button clicked
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
-        // TODO add your handling code here:
         String username = jUsernameField.getText();
         String password = String.valueOf(jPasswordField.getPassword());
+        
         
         if(checkLoginFields(username, password))
             login(username, password);
     }//GEN-LAST:event_jLoginButtonActionPerformed
 
+    //checks if user has inputted anything
      boolean checkLoginFields(String username, String password){
         if(username.equals("")){
             JOptionPane.showMessageDialog(null, "Username field can't be empty.");
@@ -255,6 +250,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
      }
     
+     //attempts a log in based on user inputs, checks db to see if inputs match, if match -> Main page of application
     public boolean login(String username, String password){
         PreparedStatement ps;
         ResultSet rs;
@@ -284,6 +280,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }
 
+    //brings to main page of application
     private void goToMainPage(String username) {
         MainPage hjf = new MainPage();
         hjf.setVisible(true);
@@ -292,8 +289,8 @@ public class LoginForm extends javax.swing.JFrame {
         hjf.jUsernameWelcomeLabel.setText("Welcome " + username + "!");
         this.dispose();
     }
+    //brings to register page of application 
     private void jLabelRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRegisterMouseClicked
-        // TODO add your handling code here:
         RegisterForm regForm = new RegisterForm();
         regForm.setVisible(true);
         regForm.pack();
