@@ -45,7 +45,6 @@ public class RegisterForm extends javax.swing.JFrame {
         jUsernameField = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jRegisterButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabelLogin = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -105,7 +104,7 @@ public class RegisterForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(74, 74, 74));
@@ -139,16 +138,6 @@ public class RegisterForm extends javax.swing.JFrame {
         jRegisterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRegisterButtonActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(122, 18, 196));
-        jButton2.setFont(new java.awt.Font("Typo Round Bold Demo", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -213,10 +202,7 @@ public class RegisterForm extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jUsernameField)
                                 .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jRegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jRegisterButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jEmailField)
                                 .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -246,9 +232,7 @@ public class RegisterForm extends javax.swing.JFrame {
                     .addComponent(passwordTwoLabel)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jRegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -289,58 +273,28 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jUsernameFieldActionPerformed
 
     private void jRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterButtonActionPerformed
-        // TODO add your handling code here:
+        //Assign user inputted fields to variables
         String username = jUsernameField.getText();
         String email = jEmailField.getText();
         String passwordOne = String.valueOf(jPasswordField1.getPassword());
         String passwordTwo = String.valueOf(jPasswordField2.getPassword());
         
-        if(username.equals("")){
-            JOptionPane.showMessageDialog(null, "Username field can't be empty.");
-        }
-        else if(email.equals("")){
-            JOptionPane.showMessageDialog(null, "Email field can't be empty.");
-        }
-        else if(passwordOne.equals("")){
-            JOptionPane.showMessageDialog(null, "Password field can't be empty.");
-        }
-        else if(!passwordOne.equals(passwordTwo)){
-            JOptionPane.showMessageDialog(null, "Passwords do not match.");
-        }
-        else{
-        PreparedStatement ps;
-        String query = "INSERT INTO `users`(`username`, `email`, `password`) VALUES (?,?,?)";
-        
-        try {
-            ps = MyConnection.getConnection().prepareStatement(query);
-            
-            ps.setString(1, username);
-            ps.setString(2, email);
-            ps.setString(3, passwordOne);
-            
-            if(ps.executeUpdate()>0){
-                JOptionPane.showMessageDialog(null, "New User Added");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
+        checkRegisterFields(username, email, passwordOne, passwordTwo);
     }//GEN-LAST:event_jRegisterButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jLabelLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLoginMouseClicked
-        // TODO add your handling code here:
+        goToLoginPage();
+    }//GEN-LAST:event_jLabelLoginMouseClicked
+
+    private void goToLoginPage() {
+        //Go to login page
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
         loginForm.pack();
         loginForm.setLocationRelativeTo(null);
         loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_jLabelLoginMouseClicked
+    }
 
     private void jEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmailFieldActionPerformed
         // TODO add your handling code here:
@@ -380,9 +334,54 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
     }
+    
+    //Checks if inputs are valid and if so creates user
+    boolean checkRegisterFields(String username, String email, String passwordOne, String passwordTwo){
+        if(username.equals("")){
+            JOptionPane.showMessageDialog(null, "Username field can't be empty.");
+            return false;
+        }
+        else if(email.equals("")){
+            JOptionPane.showMessageDialog(null, "Email field can't be empty.");
+            return false;
+        }
+        else if(passwordOne.equals("")){
+            JOptionPane.showMessageDialog(null, "Password field can't be empty.");
+            return false;
+        }
+        else if(!passwordOne.equals(passwordTwo)){
+            JOptionPane.showMessageDialog(null, "Passwords do not match.");
+            return false;
+        }
+        else{
+            insertUserIntoDB(username, email, passwordTwo);
+            return true;
+        }
+    }
+    
+    //Inserts user into db 
+    private void insertUserIntoDB(String username, String email, String password){
+                PreparedStatement ps;
+        String query = "INSERT INTO `users`(`username`, `email`, `password`) VALUES (?,?,?)";
+        
+        try {
+            ps = MyConnection.getConnection().prepareStatement(query);
+            
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            
+            if(ps.executeUpdate()>0){
+                JOptionPane.showMessageDialog(null, "New User Added");
+                        goToLoginPage();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JTextField jEmailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

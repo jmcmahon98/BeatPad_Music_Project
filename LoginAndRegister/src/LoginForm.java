@@ -27,17 +27,6 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);//center form in the screen 
     }
-    
-    //Preferences preference;
-    //boolean rememberPreferences;
-//    
-//    public void rememberMe(){
-//        preference = Preferences.userNodeForPackage(this.getClass());
-//        rememberPreferences = preference.getBoolean("rememberMe", Boolean.valueOf(""));
-//        if(rememberPreferences){
-//            user.setText("Pasword", "");
-//        }
-//                }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +47,6 @@ public class LoginForm extends javax.swing.JFrame {
         jUsernameField = new javax.swing.JTextField();
         jPasswordField = new javax.swing.JPasswordField();
         jLoginButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabelRegister = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -114,7 +102,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(74, 74, 74));
@@ -151,16 +139,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(122, 18, 196));
-        jButton2.setFont(new java.awt.Font("Typo Round Bold Demo", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Typo Round Regular Demo", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Haven't got an account?");
@@ -190,12 +168,9 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jUsernameField)
+                    .addComponent(jUsernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLoginButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,9 +193,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -262,12 +235,30 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
         // TODO add your handling code here:
-        
-        PreparedStatement ps;
-        ResultSet rs;
         String username = jUsernameField.getText();
         String password = String.valueOf(jPasswordField.getPassword());
         
+        if(checkLoginFields(username, password))
+            login(username, password);
+    }//GEN-LAST:event_jLoginButtonActionPerformed
+
+     boolean checkLoginFields(String username, String password){
+        if(username.equals("")){
+            JOptionPane.showMessageDialog(null, "Username field can't be empty.");
+            return false;
+        }
+        else if(password.equals("")){
+            JOptionPane.showMessageDialog(null, "Password field can't be empty.");
+            return false;
+        }else{
+            return true;
+        }
+     }
+    
+    public boolean login(String username, String password){
+        PreparedStatement ps;
+        ResultSet rs;
+
         String query = "SELECT * FROM `users` WHERE `username` =? AND `password` =? ";
         
         try {
@@ -279,28 +270,28 @@ public class LoginForm extends javax.swing.JFrame {
             rs = ps.executeQuery();
             
             if(rs.next()){
-                MainPage hjf = new MainPage();
-                hjf.setVisible(true);
-                hjf.setSize(1440, 860);
-                //hjf.pack();
-                hjf.setLocationRelativeTo(null);
-                //hjf.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                hjf.jUsernameWelcomeLabel.setText("Welcome " + username + "!");
-                this.dispose();
+                goToMainPage(username);
+                return true;
             }
             else{
                 JOptionPane.showMessageDialog(null, "Incorrect username or password");
+                return false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
         }
+    }
 
-    }//GEN-LAST:event_jLoginButtonActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    private void goToMainPage(String username) {
+        MainPage hjf = new MainPage();
+        hjf.setVisible(true);
+        hjf.setSize(1400, 680);
+        hjf.setLocationRelativeTo(null);
+        hjf.jUsernameWelcomeLabel.setText("Welcome " + username + "!");
+        this.dispose();
+    }
     private void jLabelRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRegisterMouseClicked
         // TODO add your handling code here:
         RegisterForm regForm = new RegisterForm();
@@ -347,7 +338,6 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
