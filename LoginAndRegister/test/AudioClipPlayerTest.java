@@ -54,7 +54,7 @@ public class AudioClipPlayerTest {
             assertEquals(-2.6F, gainControl.getValue(), 0.01);
     }
     
-        /**
+     /**
      * Test of getVolumeValue method, of class AudioClipPlayer.
      */
     @Test

@@ -279,6 +279,8 @@ public class LoginForm extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
         }
     }
 

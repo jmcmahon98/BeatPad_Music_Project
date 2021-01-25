@@ -16,7 +16,7 @@ public class MyConnection {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("Select * from users");
             while(rs.next()){
-                System.out.println(rs.getString(1));
+                //System.out.println(rs.getString(1));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
